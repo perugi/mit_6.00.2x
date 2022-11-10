@@ -1,4 +1,4 @@
-class Int_set():
+class Int_set:
     """An Int_set is a set of integers"""
 
     def __init__(self):
@@ -35,6 +35,13 @@ class Int_set():
         for v in other.get_members():
             self.insert(v)
 
+    def __add__(self, other):
+        """Returns a new set which is a union between the two operands"""
+        new_set = Int_set()
+        new_set.union(self)
+        new_set.union(other)
+        return new_set
+
     def __str__(self):
         """Returns a string representation of self"""
         if self._vals == []:
@@ -54,5 +61,6 @@ print(f"The value of s is {s}")
 o = Int_set()
 o.insert(3)
 o.insert(5)
-s.union(o)
-print(f"The value of s is {s}")
+
+n = s + o
+print(f"The value of n is {n}")
