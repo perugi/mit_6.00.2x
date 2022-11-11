@@ -56,8 +56,28 @@ class MIT_person(Person):
     def get_id_num(self):
         return self._id_num
 
+    def is_student(self):
+        return isinstance(self, Student)
+
     def __lt__(self, other):
         return self._id_num < other._id_num
+
+
+class Student(MIT_person):
+    pass
+
+
+class UG(Student):
+    def __init__(self, name, class_year):
+        super().__init__(name)
+        self._year = class_year
+
+    def get_class(self):
+        return self._year
+
+
+class Grad(Student):
+    pass
 
 
 me = Person("Harry Potter")
@@ -77,4 +97,13 @@ p4 = Person("Billy Bob Beaver")
 print(f"p1 < p2 = {p1 < p2}")
 print(f"p3 < p2 = {p3 < p2}")
 print(f"p4 < p1 = {p4 < p1}")
-print(f"p1 < p4 = {p1 < p4}")
+# print(f"p1 < p4 = {p1 < p4}")
+
+p5 = Grad("Buzz Aldrin")
+p6 = UG("Billy Beaver", 1984)
+print(f"{p5} is a graduate student is {type(p5) == Grad}")
+print(f"{p5} is an undergraduate student is {type(p5) == UG}")
+
+print(f"{p5} is a student is {p5.is_student()}")
+print(f"{p6} is a student is {p6.is_student()}")
+print(f"{p3} is a student is {p3.is_student()}")
