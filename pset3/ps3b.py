@@ -316,16 +316,14 @@ class ResistantVirus(SimpleVirus):
         NoChildException if this virus particle does not reproduce.
         """
 
-        # Find if any of the drugs are effective (virus not resistant to the drug)
-        drugs_effective = False
         for drug in activeDrugs:
             if not self.isResistantTo(drug):
-                drugs_effective = True
+                virus_resistant = False
                 break
-
-        if drugs_effective:
-            raise (NoChildException)
         else:
+            virus_resistant = True
+
+        if virus_resistant:
             if random.random() < (self.getMaxBirthProb() * (1 - popDensity)):
                 # The virus will multiply, copy the resistances of the parent with (1 - mutProb) probability.
                 child_resistances = {}
@@ -345,6 +343,8 @@ class ResistantVirus(SimpleVirus):
                 )
             else:
                 raise (NoChildException)
+        else:
+            raise (NoChildException)
 
 
 class TreatedPatient(Patient):
